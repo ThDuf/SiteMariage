@@ -1,7 +1,7 @@
 const CONFIG = {
-  prenom1: "Adele",
+  prenom1: "Adèle",
   prenom2: "Thibault",
-  date: "2026-06-20T16:00:00+02:00",
+  date: "2026-06-12T16:00:00+02:00",
   lieu: "Château de la Vallée, 12 rue des Lilas, 75011 Paris",
   emailRsvp: "rsvp.mariage@example.com",
   telephone: "+33 6 12 34 56 78",
@@ -15,8 +15,10 @@ const CONFIG = {
     { heure: "23 h 00", titre: "Soirée dansante", lieu: "L'orangerie du château", detail: "Jusqu'au bout de la nuit, avec gâteau de minuit." }
   ],
   hebergement: [
-    { nom: "Hôtel Le Lilas", adresse: "8 rue des Lilas, 75011 Paris", info: "Bloc de chambres réservé au nom du mariage, tarif négocié jusqu'au 30 avril." },
-    { nom: "Chambres d'hôtes des Coquelicots", adresse: "3 route du village, 75012 Paris", info: "À 10 minutes en voiture du château." }
+    { nom: "La maison familiale", adresse: "Adresse transmise avec votre invitation", info: "Chambres disponibles chez la famille d'Adèle & Thibault — écrivez-nous pour réserver la vôtre.", lien: "" },
+    { nom: "Hôtel Napoléon", adresse: "40 avenue de Friedland, 75008 Paris", info: "Bloc de chambres réservé au nom du mariage, tarif négocié.", lien: "https://www.hotelnapoleon.com/" },
+    { nom: "Logements Chaudet", adresse: "La Mulatière, Grand Lyon", info: "Appartements meublés réservés pour les invités du mariage.", lien: "https://www.chaudetgestion.com/" },
+    { nom: "Pierre & Vacances", adresse: "Résidences en France et en Europe", info: "Appartements et résidences — meilleur prix garanti en réservant sur le site officiel.", lien: "https://www.pierreetvacances.com/" }
   ],
   transport: "Une navette assure les allers-retours entre la mairie et le château à 15 h 30, 18 h 00 et en fin de soirée. Un parking gratuit est disponible sur place.",
   organisateurs: "Pour toute question, écrivez-nous ou appelez-nous, nous vous répondrons avec plaisir."

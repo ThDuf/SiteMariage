@@ -67,7 +67,10 @@ function remplirHebergement() {
   CONFIG.hebergement.forEach(function (h) {
     const carte = document.createElement("article");
     carte.className = "carte";
-    carte.innerHTML = "<h3>" + h.nom + "</h3><p>" + h.adresse + "</p><p>" + h.info + "</p>";
+    const titre = h.lien
+      ? '<a href="' + h.lien + '" target="_blank" rel="noopener">' + h.nom + "</a>"
+      : h.nom;
+    carte.innerHTML = "<h3>" + titre + "</h3><p>" + h.adresse + "</p><p>" + h.info + "</p>";
     conteneur.appendChild(carte);
   });
 }
