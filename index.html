@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nous nous marions</title>
+  <meta name="description" content="Site de mariage : date, organisation de la journée et réponse (RSVP) des invités.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="barre">
+    <nav class="navigation" aria-label="Navigation principale">
+      <a class="marque" href="#accueil" id="marque">💍</a>
+      <button class="bouton-menu" id="bouton-menu" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+      <ul class="liens" id="liens">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#organisation">Organisation</a></li>
+        <li><a href="#hebergement">Hébergement</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="accueil" class="hero">
+      <p class="sur-titre">Nous avons la joie de vous annoncer notre mariage</p>
+      <h1 id="noms-couple">&nbsp;</h1>
+      <p class="date-lieu"><span id="date-affichee"></span><br><span id="lieu-affiche"></span></p>
+      <div class="compte-a-rebours" id="compte-a-rebours" aria-live="polite">
+        <div class="unite"><span class="valeur" id="cb-jours">–</span><span class="etiquette">jours</span></div>
+        <div class="unite"><span class="valeur" id="cb-heures">–</span><span class="etiquette">heures</span></div>
+        <div class="unite"><span class="valeur" id="cb-minutes">–</span><span class="etiquette">minutes</span></div>
+        <div class="unite"><span class="valeur" id="cb-secondes">–</span><span class="etiquette">secondes</span></div>
+      </div>
+      <div class="actions-hero">
+        <a class="bouton bouton-principal" href="#rsvp">Confirmer ma présence</a>
+        <a class="bouton bouton-secondaire" id="lien-calendrier" href="#" target="_blank" rel="noopener">Ajouter à mon agenda</a>
+      </div>
+    </section>
+
+    <section id="organisation" class="section">
+      <h2>Organisation de la journée</h2>
+      <p class="introduction">Voici le déroulé de notre journée. Nous avons hâte de la partager avec vous.</p>
+      <ol class="programme" id="liste-programme"></ol>
+      <div class="cartes">
+        <article class="carte">
+          <h3>Se déplacer</h3>
+          <p id="texte-transport"></p>
+          <p><a id="lien-plan" href="#" target="_blank" rel="noopener">Voir le lieu sur la carte</a></p>
+        </article>
+        <article class="carte">
+          <h3>Dress code</h3>
+          <p id="texte-dresscode"></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="hebergement" class="section section-alternee">
+      <h2>Hébergement</h2>
+      <p class="introduction">Quelques adresses réservées pour la nuit du mariage.</p>
+      <div class="cartes" id="liste-hebergement"></div>
+    </section>
+
+    <section id="rsvp" class="section">
+      <h2>Répondez-nous (RSVP)</h2>
+      <p class="introduction">Merci de confirmer votre présence avant le <strong id="date-limite"></strong>. Le formulaire ouvre votre client e-mail avec votre réponse pré-remplie : il ne reste qu'à envoyer.</p>
+      <form id="formulaire-rsvp" class="formulaire" novalidate>
+        <div class="champ">
+          <label for="nom">Votre nom complet *</label>
+          <input type="text" id="nom" name="nom" required autocomplete="name">
+        </div>
+        <div class="champ">
+          <label for="email">Votre e-mail *</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="champ">
+          <label for="nombre">Nombre de personnes (vous compris) *</label>
+          <input type="number" id="nombre" name="nombre" min="1" max="10" value="1" required>
+        </div>
+        <fieldset class="champ">
+          <legend>Serez-vous des nôtres ? *</legend>
+          <label class="radio"><input type="radio" name="presence" value="oui" required> Oui, avec joie</label>
+          <label class="radio"><input type="radio" name="presence" value="non"> Non, hélas</label>
+          <label class="radio"><input type="radio" name="presence" value="peut-etre"> Peut-être</label>
+        </fieldset>
+        <div class="champ">
+          <label for="restrictions">Allergies ou régimes alimentaires</label>
+          <textarea id="restrictions" name="restrictions" rows="2" placeholder="Précisez ici toute allergie ou préférence (végétarien, sans gluten, etc.)"></textarea>
+        </div>
+        <div class="champ">
+          <label for="message">Un mot pour les mariés</label>
+          <textarea id="message" name="message" rows="3" placeholder="Félicitations, conseils, anecdote…"></textarea>
+        </div>
+        <button type="submit" class="bouton bouton-principal">Envoyer ma réponse</button>
+        <p class="aide" id="aide-rsvp"></p>
+      </form>
+    </section>
+
+    <section id="contact" class="section section-alternee">
+      <h2>Contact</h2>
+      <p id="texte-organisateurs" class="introduction"></p>
+      <p>E-mail : <a id="lien-email" href="#"></a><br>Téléphone : <a id="lien-tel" href="#"></a></p>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <p id="pied-noms"></p>
+    <p class="petit">Avec amour, à très vite.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
