@@ -2,7 +2,7 @@ const CONFIG = {
   prenom1: "Adèle",
   prenom2: "Thibault",
   date: "2026-06-12T16:00:00+02:00",
-  lieu: "Château de la Vallée, 12 rue des Lilas, 75011 Paris",
+  lieu: "Île-d'Aix, 17123 Charente-Maritime",
   emailRsvp: "rsvp.mariage@example.com",
   telephone: "+33 6 12 34 56 78",
   dateLimiteRsvp: "30 avril 2026",
@@ -15,10 +15,10 @@ const CONFIG = {
     { heure: "23 h 00", titre: "Soirée dansante", lieu: "L'orangerie du château", detail: "Jusqu'au bout de la nuit, avec gâteau de minuit." }
   ],
   hebergement: [
-    { nom: "La maison familiale", adresse: "Adresse transmise avec votre invitation", info: "Chambres disponibles chez la famille d'Adèle & Thibault — écrivez-nous pour réserver la vôtre.", lien: "" },
-    { nom: "Hôtel Napoléon", adresse: "40 avenue de Friedland, 75008 Paris", info: "Bloc de chambres réservé au nom du mariage, tarif négocié.", lien: "https://www.hotelnapoleon.com/" },
-    { nom: "Logements Chaudet", adresse: "La Mulatière, Grand Lyon", info: "Appartements meublés réservés pour les invités du mariage.", lien: "https://www.chaudetgestion.com/" },
-    { nom: "Pierre & Vacances", adresse: "Résidences en France et en Europe", info: "Appartements et résidences — meilleur prix garanti en réservant sur le site officiel.", lien: "https://www.pierreetvacances.com/" }
+    { nom: "La maison familiale", adresse: "Île-d'Aix — adresse transmise avec l'invitation", info: "Chambres disponibles chez la famille d'Adèle & Thibault — écrivez-nous pour réserver la vôtre.", lien: "" },
+    { nom: "Hôtel Napoléon", adresse: "Rue Gourgaud, Île-d'Aix, 17123", info: "18 chambres au cœur du village, bloc réservé au nom du mariage. Aucun véhicule sur l'île : parking réservé au port de Fouras.", lien: "https://hotel-ile-aix.com/" },
+    { nom: "Logements Chaudet", adresse: "Île-d'Aix", info: "Logements meublés réservés pour les invités du mariage — lien à compléter.", lien: "" },
+    { nom: "Pierre & Vacances — Le Fort de la Rade", adresse: "Île-d'Aix, à 300 m de l'embarcadère", info: "Appartements et maisons dans l'enceinte fortifiée, piscine en saison. Meilleur prix garanti sur le site officiel.", lien: "https://www.pierreetvacances.com/fr-fr/fp_IXF_location-residence-le-fort-de-la-rade" }
   ],
   transport: "Une navette assure les allers-retours entre la mairie et le château à 15 h 30, 18 h 00 et en fin de soirée. Un parking gratuit est disponible sur place.",
   organisateurs: "Pour toute question, écrivez-nous ou appelez-nous, nous vous répondrons avec plaisir."
