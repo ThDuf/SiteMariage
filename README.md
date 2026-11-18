@@ -6,7 +6,7 @@ Site statique en français, sans serveur ni base de données, publiable tel quel
 
 - `index.html` : la page unique (accueil avec compte à rebours, organisation, hébergement, formulaire RSVP, contact).
 - `config.js` : **seul fichier à modifier** pour personnaliser le site (prénoms, date, lieu, e-mail de réception des RSVP, programme de la journée, hébergements, dress code).
-- `app.js` : affichage dynamique (compte à rebours, programme, lien agenda Google, génération de l'e-mail RSVP).
+- `app.js` : affichage dynamique (compte à rebours, programme, hébergements et compagnies de bateaux avec liens, carte intégrée, QR code en pied de page, lien agenda Google, génération de l'e-mail RSVP).
 - `styles.css` : mise en page (style élégant ivoire/doré, responsive mobile).
 
 ## Personnaliser
@@ -16,7 +16,7 @@ Ouvrez `config.js` et remplacez les valeurs d'exemple :
 - `prenom1`, `prenom2`, `date` (format ISO, ex. `2026-06-20T16:00:00+02:00`), `lieu` ;
 - `emailRsvp` : adresse qui recevra les réponses (le formulaire ouvre le client mail de l'invité avec la réponse pré-remplie) ;
 - `programme` : liste des étapes de la journée (heure, titre, lieu, détail) ;
-- `hebergement` (chaque entrée accepte un champ `lien` optionnel vers le site de réservation), `transport`, `dressCode`, `dateLimiteRsvp`.
+- `hebergement` (chaque entrée accepte un champ `lien` optionnel vers le site de réservation), `bateaux` (compagnies de la traversée Fouras ↔ Île-d'Aix, champ `lien`), `transport`, `lienCarte` (URL de la carte intégrée, ex. Google Maps `output=embed`), `dressCode`, `dateLimiteRsvp`.
 
 Pour changer les couleurs, modifiez les variables CSS en haut de `styles.css` (`--ivoire`, `--or`, etc.).
 

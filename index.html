@@ -19,6 +19,7 @@
       <ul class="liens" id="liens">
         <li><a href="#accueil">Accueil</a></li>
         <li><a href="#organisation">Organisation</a></li>
+        <li><a href="#carte">Carte</a></li>
         <li><a href="#hebergement">Hébergement</a></li>
         <li><a href="#rsvp">RSVP</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -54,10 +55,20 @@
           <p><a id="lien-plan" href="#" target="_blank" rel="noopener">Voir le lieu sur la carte</a></p>
         </article>
         <article class="carte">
+          <h3>Venir en bateau</h3>
+          <ul class="liste-bateaux" id="liste-bateaux"></ul>
+        </article>
+        <article class="carte">
           <h3>Dress code</h3>
           <p id="texte-dresscode"></p>
         </article>
       </div>
+    </section>
+
+    <section id="carte" class="section section-alternee">
+      <h2>Carte de l'île</h2>
+      <p class="introduction">Embarcadère de l'île d'Aix et port de Fouras (pointe de la Fumée), point de départ des bateaux.</p>
+      <div class="carte-carte"><iframe id="iframe-carte" title="Carte de l'île d'Aix et de Fouras" loading="lazy" allowfullscreen></iframe></div>
     </section>
 
     <section id="hebergement" class="section section-alternee">
@@ -111,8 +122,13 @@
   <footer class="pied">
     <p id="pied-noms"></p>
     <p class="petit">Avec amour, à très vite.</p>
+    <div class="qrcode-bloc">
+      <div id="qrcode" role="img" aria-label="QR code du site du mariage"></div>
+      <p class="petit">Scannez ce QR code pour ouvrir le site sur votre téléphone</p>
+    </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
 </body>

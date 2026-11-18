@@ -5,7 +5,7 @@ const CONFIG = {
   lieu: "Île-d'Aix, 17123 Charente-Maritime",
   emailRsvp: "rsvp.mariage@example.com",
   telephone: "+33 6 12 34 56 78",
-  dateLimiteRsvp: "30 avril 2026",
+  dateLimiteRsvp: "30 avril 2027",
   dressCode: "Tenue de cérémonie. Le blanc et le doré sont réservés aux mariés.",
   programme: [
     { heure: "15 h 30", titre: "Accueil des invités", lieu: "Château de la Vallée", detail: "Merci d'arriver 30 minutes avant le début de la cérémonie." },
@@ -20,6 +20,11 @@ const CONFIG = {
     { nom: "Logements Chaudet", adresse: "Île-d'Aix", info: "Logements meublés réservés pour les invités du mariage — lien à compléter.", lien: "" },
     { nom: "Pierre & Vacances — Le Fort de la Rade", adresse: "Île-d'Aix, à 300 m de l'embarcadère", info: "Appartements et maisons dans l'enceinte fortifiée, piscine en saison. Meilleur prix garanti sur le site officiel.", lien: "https://www.pierreetvacances.com/fr-fr/fp_IXF_location-residence-le-fort-de-la-rade" }
   ],
-  transport: "Une navette assure les allers-retours entre la mairie et le château à 15 h 30, 18 h 00 et en fin de soirée. Un parking gratuit est disponible sur place.",
+  transport: "L'île d'Aix est entièrement piétonne : aucun véhicule motorisé n'est autorisé sur l'île. Garez votre voiture au parking du port de Fouras (pointe de la Fumée), puis prenez le bateau pour la traversée (environ 20 minutes).",
+  bateaux: [
+    { nom: "Inter Îles", info: "Liaisons maritimes Fouras ↔ Île d'Aix, et croisières depuis La Rochelle vers l'île d'Aix et Fort Boyard.", lien: "https://www.inter-iles.com/" },
+    { nom: "Navipromer", info: "Liaisons et croisières vers l'île d'Aix et Fort Boyard au départ de Fouras.", lien: "https://www.navipromer.com/" }
+  ],
+  lienCarte: "https://www.google.com/maps?q=%C3%8Ele-d%27Aix%2C+17123+Charente-Maritime&z=14&output=embed",
   organisateurs: "Pour toute question, écrivez-nous ou appelez-nous, nous vous répondrons avec plaisir."
 };

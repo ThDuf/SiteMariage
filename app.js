@@ -124,6 +124,35 @@ function envoyerRsvp(evenement) {
   window.location.href = url;
 }
 
+function remplirBateaux() {
+  const liste = document.getElementById("liste-bateaux");
+  CONFIG.bateaux.forEach(function (b) {
+    const li = document.createElement("li");
+    li.innerHTML = '<a href="' + b.lien + '" target="_blank" rel="noopener">' + b.nom + "</a> — " + b.info;
+    liste.appendChild(li);
+  });
+}
+
+function chargerCarte() {
+  const iframe = document.getElementById("iframe-carte");
+  if (iframe && CONFIG.lienCarte) {
+    iframe.src = CONFIG.lienCarte;
+  }
+}
+
+function genererQrCode() {
+  const cible = document.getElementById("qrcode");
+  if (typeof QRCode !== "undefined" && cible) {
+    new QRCode(cible, {
+      text: window.location.origin + window.location.pathname,
+      width: 140,
+      height: 140,
+      colorDark: "#2e2a26",
+      colorLight: "#fffdf9"
+    });
+  }
+}
+
 function activerMenuMobile() {
   const bouton = document.getElementById("bouton-menu");
   const liens = document.getElementById("liens");
@@ -139,6 +168,9 @@ function activerMenuMobile() {
 renseignerTextes();
 remplirProgramme();
 remplirHebergement();
+remplirBateaux();
+chargerCarte();
+genererQrCode();
 lancerCompteARebours();
 activerMenuMobile();
 document.getElementById("formulaire-rsvp").addEventListener("submit", envoyerRsvp);
