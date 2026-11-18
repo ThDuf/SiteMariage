@@ -1,6 +1,6 @@
 const CONFIG = {
-  prenom1: "Léa",
-  prenom2: "Thomas",
+  prenom1: "Adele",
+  prenom2: "Thibault",
   date: "2026-06-20T16:00:00+02:00",
   lieu: "Château de la Vallée, 12 rue des Lilas, 75011 Paris",
   emailRsvp: "rsvp.mariage@example.com",
