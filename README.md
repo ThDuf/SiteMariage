@@ -14,7 +14,7 @@ Site statique en français, sans serveur ni base de données, publiable tel quel
 Ouvrez `config.js` et remplacez les valeurs d'exemple :
 
 - `prenom1`, `prenom2`, `date` (format ISO, ex. `2026-06-20T16:00:00+02:00`), `lieu` ;
-- `emailRsvp` : adresse qui recevra les réponses (le formulaire ouvre le client mail de l'invité avec la réponse pré-remplie) ;
+- `emailsRsvp` : liste des adresses qui recevront les réponses (le formulaire ouvre le client mail de l'invité avec la réponse pré-remplie, en destinataires multiples) ;
 - `programme` : liste des étapes de la journée (heure, titre, lieu, détail) ;
 - `hebergement` (chaque entrée accepte un champ `lien` optionnel vers le site de réservation), `bateaux` (compagnies de la traversée Fouras ↔ Île-d'Aix, champ `lien`), `transport`, `lienCarte` (URL de la carte intégrée, ex. Google Maps `output=embed`), `dressCode`, `dateLimiteRsvp`.
 
@@ -28,4 +28,4 @@ Pour changer les couleurs, modifiez les variables CSS en haut de `styles.css` (`
 
 ## Fonctionnement du RSVP
 
-Le formulaire ne stocke rien : à l'envoi, il ouvre le client e-mail de l'invité avec un message pré-rempli adressé à `emailRsvp`. Pour un formulaire hébergé (Google Forms, Formspree…), remplacez la section `#rsvp` de `index.html` par un lien ou un intégration (`<iframe>`) vers votre formulaire.
+Le formulaire ne stocke rien : à l'envoi, il ouvre le client e-mail de l'invité avec un message pré-rempli adressé à toutes les adresses de `emailsRsvp`. Pour un formulaire hébergé (Google Forms, Formspree…), remplacez la section `#rsvp` de `index.html` par un lien ou un intégration (`<iframe>`) vers votre formulaire.

@@ -26,13 +26,13 @@ function renseignerTextes() {
   document.getElementById("pied-noms").textContent = "Le mariage de " + noms;
   document.title = noms + " se marient";
   const lienEmail = document.getElementById("lien-email");
-  lienEmail.textContent = CONFIG.emailRsvp;
-  lienEmail.href = "mailto:" + CONFIG.emailRsvp;
+  lienEmail.textContent = CONFIG.emailsRsvp.join(", ");
+  lienEmail.href = "mailto:" + CONFIG.emailsRsvp.join(",");
   const lienTel = document.getElementById("lien-tel");
   lienTel.textContent = CONFIG.telephone;
   lienTel.href = "tel:" + CONFIG.telephone.replace(/\s/g, "");
   document.getElementById("aide-rsvp").textContent =
-    "Si votre client e-mail ne s'ouvre pas, écrivez-nous directement à " + CONFIG.emailRsvp + ".";
+    "Si votre client e-mail ne s'ouvre pas, écrivez-nous directement à " + CONFIG.emailsRsvp.join(", ") + ".";
   const lienPlan = document.getElementById("lien-plan");
   lienPlan.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.lieu);
   const debut = new Date(CONFIG.date);
@@ -118,7 +118,7 @@ function envoyerRsvp(evenement) {
     "Message : " + (formulaire.message.value.trim() || "—")
   ];
   const sujet = "RSVP mariage de " + CONFIG.prenom1 + " & " + CONFIG.prenom2 + " – " + formulaire.nom.value.trim();
-  const url = "mailto:" + CONFIG.emailRsvp +
+  const url = "mailto:" + CONFIG.emailsRsvp.join(",") +
     "?subject=" + encodeURIComponent(sujet) +
     "&body=" + encodeURIComponent(lignes.join("\n"));
   window.location.href = url;
