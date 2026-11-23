@@ -9,6 +9,8 @@ const CONFIG = {
     endpoint: "https://formsubmit.co/ajax/dufresne.thibault@gmail.com",
     copie: "adele.et.thibault@gmail.com"
   },
+  gsheetEndpoint: "",
+  gsheetSecret: "",
   telephone: "+33 6 12 34 56 78",
   dateLimiteRsvp: "30 avril 2027",
   dressCode: "Tenue de cérémonie. Le blanc et le doré sont réservés aux mariés.",

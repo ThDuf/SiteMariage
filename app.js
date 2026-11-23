@@ -153,6 +153,17 @@ function envoyerRsvp(evenement) {
   if (CONFIG.rsvpDirect.copie) {
     donnees.append("_cc", CONFIG.rsvpDirect.copie);
   }
+  if (CONFIG.gsheetEndpoint) {
+    const params = new URLSearchParams();
+    params.append("token", CONFIG.gsheetSecret || "");
+    params.append("nom", formulaire.nom.value.trim());
+    params.append("email", formulaire.email.value.trim());
+    params.append("nombre_personnes", formulaire.nombre.value);
+    params.append("presence", presence.value);
+    params.append("allergies_regimes", formulaire.restrictions.value.trim() || "—");
+    params.append("message", formulaire.message.value.trim() || "—");
+    fetch(CONFIG.gsheetEndpoint, { method: "POST", mode: "no-cors", body: params }).catch(function () {});
+  }
   dernierSujet = sujet;
   dernieresLignes = lignes;
   if (statut) {
