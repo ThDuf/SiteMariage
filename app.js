@@ -108,6 +108,16 @@ function ouvrirClientMail(sujet, lignes) {
   window.location.href = url;
 }
 
+let dernierSujet = "";
+let dernieresLignes = [];
+
+function afficherSecoursMailto() {
+  const lien = document.getElementById("lien-mailto-secours");
+  if (lien) {
+    lien.hidden = false;
+  }
+}
+
 function envoyerRsvp(evenement) {
   evenement.preventDefault();
   const formulaire = evenement.target;
@@ -143,6 +153,8 @@ function envoyerRsvp(evenement) {
   if (CONFIG.rsvpDirect.copie) {
     donnees.append("_cc", CONFIG.rsvpDirect.copie);
   }
+  dernierSujet = sujet;
+  dernieresLignes = lignes;
   if (statut) {
     statut.textContent = "Envoi de votre réponse en cours…";
   }
@@ -151,29 +163,39 @@ function envoyerRsvp(evenement) {
     body: donnees,
     headers: { "Accept": "application/json" }
   }).then(function (reponse) {
-    return reponse.json().then(function (data) {
-      return { ok: reponse.ok, data: data };
+    return reponse.text().then(function (texte) {
+      let data = null;
+      try {
+        data = JSON.parse(texte);
+      } catch (erreur) {
+        data = null;
+      }
+      return { ok: reponse.ok, status: reponse.status, data: data };
     });
   }).then(function (resultat) {
-    const succes = resultat.ok && resultat.data &&
-      (resultat.data.success === true || resultat.data.success === "true");
+    const data = resultat.data || {};
+    const succes = resultat.ok && (data.success === true || data.success === "true");
     if (succes) {
       if (statut) {
         statut.textContent = "Merci ! Votre réponse a bien été envoyée. À très vite le 12 juin 2027 !";
       }
       formulaire.reset();
-    } else {
-      if (statut) {
-        const detail = resultat.data && resultat.data.message ? " — " + resultat.data.message : "";
-        statut.textContent = "L'envoi direct a échoué" + detail + ". On ouvre votre client e-mail à la place.";
+      const lien = document.getElementById("lien-mailto-secours");
+      if (lien) {
+        lien.hidden = true;
       }
-      ouvrirClientMail(sujet, lignes);
+    } else {
+      const raison = data.message || data.error || ("HTTP " + resultat.status);
+      if (statut) {
+        statut.textContent = "Échec de l'envoi direct : " + raison + " Le formulaire n'a pas été envoyé.";
+      }
+      afficherSecoursMailto();
     }
   }).catch(function () {
     if (statut) {
-      statut.textContent = "Envoi direct indisponible — on ouvre votre client e-mail à la place.";
+      statut.textContent = "Envoi direct indisponible (problème réseau ou blocage du navigateur). Le formulaire n'a pas été envoyé.";
     }
-    ouvrirClientMail(sujet, lignes);
+    afficherSecoursMailto();
   });
 }
 
@@ -227,3 +249,7 @@ genererQrCode();
 lancerCompteARebours();
 activerMenuMobile();
 document.getElementById("formulaire-rsvp").addEventListener("submit", envoyerRsvp);
+document.getElementById("lien-mailto-secours").addEventListener("click", function (e) {
+  e.preventDefault();
+  ouvrirClientMail(dernierSujet, dernieresLignes);
+});
