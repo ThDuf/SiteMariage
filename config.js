@@ -4,6 +4,11 @@ const CONFIG = {
   date: "2027-06-12T16:00:00+02:00",
   lieu: "Île-d'Aix, 17123 Charente-Maritime",
   emailsRsvp: ["dufresne.thibault@gmail.com", "adele.et.thibault@gmail.com"],
+  rsvpDirect: {
+    actif: true,
+    endpoint: "https://formsubmit.co/ajax/dufresne.thibault@gmail.com",
+    copie: "adele.et.thibault@gmail.com"
+  },
   telephone: "+33 6 12 34 56 78",
   dateLimiteRsvp: "30 avril 2027",
   dressCode: "Tenue de cérémonie. Le blanc et le doré sont réservés aux mariés.",

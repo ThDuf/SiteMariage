@@ -28,4 +28,6 @@ Pour changer les couleurs, modifiez les variables CSS en haut de `styles.css` (`
 
 ## Fonctionnement du RSVP
 
-Le formulaire ne stocke rien : à l'envoi, il ouvre le client e-mail de l'invité avec un message pré-rempli adressé à toutes les adresses de `emailsRsvp`. Pour un formulaire hébergé (Google Forms, Formspree…), remplacez la section `#rsvp` de `index.html` par un lien ou un intégration (`<iframe>`) vers votre formulaire.
+Par défaut, l'envoi est **direct depuis le site** via le service FormSubmit (`rsvpDirect` dans `config.js`) : GitHub Pages étant statique, aucun serveur n'est nécessaire, le navigateur envoie le formulaire en POST à `rsvpDirect.endpoint` (destinataire principal) avec `rsvpDirect.copie` en copie (`_cc`), et chaque réponse arrive par e-mail sur toutes les adresses de `emailsRsvp`. **Au premier envoi, FormSubmit envoie un e-mail de confirmation à chaque adresse destinataire : il faut cliquer sur le lien reçu pour activer la livraison.** Si l'envoi direct échoue, le formulaire ouvre automatiquement le client e-mail de l'invité (mailto pré-rempli vers `emailsRsvp`).
+
+Pour un autre service (Formspree, Google Forms…), changez `rsvpDirect.endpoint`, ou mettez `rsvpDirect.actif` à `false` pour revenir au mailto seul.

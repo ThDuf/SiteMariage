@@ -32,7 +32,7 @@ function renseignerTextes() {
   lienTel.textContent = CONFIG.telephone;
   lienTel.href = "tel:" + CONFIG.telephone.replace(/\s/g, "");
   document.getElementById("aide-rsvp").textContent =
-    "Si votre client e-mail ne s'ouvre pas, écrivez-nous directement à " + CONFIG.emailsRsvp.join(", ") + ".";
+    "Votre réponse est envoyée directement par e-mail à " + CONFIG.emailsRsvp.join(" et ") + ". En cas de problème, écrivez-nous à ces adresses.";
   const lienPlan = document.getElementById("lien-plan");
   lienPlan.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.lieu);
   const debut = new Date(CONFIG.date);
@@ -101,6 +101,13 @@ function lancerCompteARebours() {
   setInterval(tick, 1000);
 }
 
+function ouvrirClientMail(sujet, lignes) {
+  const url = "mailto:" + CONFIG.emailsRsvp.join(",") +
+    "?subject=" + encodeURIComponent(sujet) +
+    "&body=" + encodeURIComponent(lignes.join("\n"));
+  window.location.href = url;
+}
+
 function envoyerRsvp(evenement) {
   evenement.preventDefault();
   const formulaire = evenement.target;
@@ -108,6 +115,7 @@ function envoyerRsvp(evenement) {
     formulaire.reportValidity();
     return;
   }
+  const statut = document.getElementById("statut-rsvp");
   const presence = formulaire.querySelector('input[name="presence"]:checked');
   const lignes = [
     "Nom : " + formulaire.nom.value.trim(),
@@ -118,10 +126,54 @@ function envoyerRsvp(evenement) {
     "Message : " + (formulaire.message.value.trim() || "—")
   ];
   const sujet = "RSVP mariage de " + CONFIG.prenom1 + " & " + CONFIG.prenom2 + " – " + formulaire.nom.value.trim();
-  const url = "mailto:" + CONFIG.emailsRsvp.join(",") +
-    "?subject=" + encodeURIComponent(sujet) +
-    "&body=" + encodeURIComponent(lignes.join("\n"));
-  window.location.href = url;
+  if (!CONFIG.rsvpDirect || !CONFIG.rsvpDirect.actif) {
+    ouvrirClientMail(sujet, lignes);
+    return;
+  }
+  const donnees = new FormData();
+  donnees.append("nom", formulaire.nom.value.trim());
+  donnees.append("email", formulaire.email.value.trim());
+  donnees.append("nombre_personnes", formulaire.nombre.value);
+  donnees.append("presence", presence.value);
+  donnees.append("allergies_regimes", formulaire.restrictions.value.trim() || "—");
+  donnees.append("message", formulaire.message.value.trim() || "—");
+  donnees.append("_subject", sujet);
+  donnees.append("_template", "table");
+  donnees.append("_captcha", "false");
+  if (CONFIG.rsvpDirect.copie) {
+    donnees.append("_cc", CONFIG.rsvpDirect.copie);
+  }
+  if (statut) {
+    statut.textContent = "Envoi de votre réponse en cours…";
+  }
+  fetch(CONFIG.rsvpDirect.endpoint, {
+    method: "POST",
+    body: donnees,
+    headers: { "Accept": "application/json" }
+  }).then(function (reponse) {
+    return reponse.json().then(function (data) {
+      return { ok: reponse.ok, data: data };
+    });
+  }).then(function (resultat) {
+    const succes = resultat.ok && resultat.data &&
+      (resultat.data.success === true || resultat.data.success === "true");
+    if (succes) {
+      if (statut) {
+        statut.textContent = "Merci ! Votre réponse a bien été envoyée. À très vite le 12 juin 2027 !";
+      }
+      formulaire.reset();
+    } else {
+      if (statut) {
+        statut.textContent = "L'envoi direct a échoué — on ouvre votre client e-mail à la place.";
+      }
+      ouvrirClientMail(sujet, lignes);
+    }
+  }).catch(function () {
+    if (statut) {
+      statut.textContent = "Envoi direct indisponible — on ouvre votre client e-mail à la place.";
+    }
+    ouvrirClientMail(sujet, lignes);
+  });
 }
 
 function remplirBateaux() {

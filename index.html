@@ -79,7 +79,7 @@
 
     <section id="rsvp" class="section">
       <h2>Répondez-nous (RSVP)</h2>
-      <p class="introduction">Merci de confirmer votre présence avant le <strong id="date-limite"></strong>. Le formulaire ouvre votre client e-mail avec votre réponse pré-remplie : il ne reste qu'à envoyer.</p>
+      <p class="introduction">Merci de confirmer votre présence avant le <strong id="date-limite"></strong>. Le formulaire envoie directement votre réponse par e-mail — si cela échoue, il ouvre votre client e-mail avec la réponse pré-remplie.</p>
       <form id="formulaire-rsvp" class="formulaire" novalidate>
         <div class="champ">
           <label for="nom">Votre nom complet *</label>
@@ -109,6 +109,7 @@
         </div>
         <button type="submit" class="bouton bouton-principal">Envoyer ma réponse</button>
         <p class="aide" id="aide-rsvp"></p>
+        <p class="aide" id="statut-rsvp" role="status"></p>
       </form>
     </section>
 
