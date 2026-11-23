@@ -85,9 +85,19 @@ a { color: var(--or-fonce); }
   justify-content: center;
   text-align: center;
   padding: 4rem 1.5rem;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(176, 141, 62, 0.16), transparent 60%),
-    linear-gradient(180deg, var(--ivoire) 0%, #f3ecdd 100%);
+  background-color: var(--ivoire);
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(176, 141, 62, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(250, 247, 242, 0.88) 0%, rgba(250, 247, 242, 0.58) 50%, rgba(250, 247, 242, 0.9) 100%),
+    url("assets/hero-ile-d-aix.jpg"),
+    url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Aix_island_lighthouses_%282013%29.jpg/1920px-Aix_island_lighthouses_%282013%29.jpg");
+  background-size: cover, cover, cover, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat;
+}
+
+.hero h1, .sur-titre, .date-lieu {
+  text-shadow: 0 1px 14px rgba(250, 247, 242, 0.95);
 }
 
 .sur-titre {

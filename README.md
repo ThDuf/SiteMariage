@@ -9,6 +9,10 @@ Site statique en français, sans serveur ni base de données, publiable tel quel
 - `app.js` : affichage dynamique (compte à rebours, programme, hébergements et compagnies de bateaux avec liens, carte intégrée, QR code en pied de page, lien agenda Google, génération de l'e-mail RSVP).
 - `styles.css` : mise en page (style élégant ivoire/doré, responsive mobile).
 
+## Photo d'arrière-plan de l'accueil
+
+L'accueil affiche en arrière-plan `assets/hero-ile-d-aix.jpg` si le fichier existe (votre propre photo de l'île d'Aix), sinon une photo Wikimedia Commons de l'île en secours. Pour utiliser votre photo : placez-la dans `assets/hero-ile-d-aix.jpg` et retirez la ligne de crédit Wikimedia dans le pied de page de `index.html`.
+
 ## Personnaliser
 
 Ouvrez `config.js` et remplacez les valeurs d'exemple :
