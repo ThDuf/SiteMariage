@@ -13,7 +13,7 @@ Site statique en français, sans serveur ni base de données, publiable tel quel
 
 Ouvrez `config.js` et remplacez les valeurs d'exemple :
 
-- `prenom1`, `prenom2`, `date` (format ISO, ex. `2026-06-20T16:00:00+02:00`), `lieu` ;
+- `prenom1`, `prenom2`, `date` (heure française, affichée en heure de Paris pour tous les invités) (format ISO, ex. `2026-06-20T16:00:00+02:00`), `lieu` ;
 - `emailsRsvp` : liste des adresses qui recevront les réponses (le formulaire ouvre le client mail de l'invité avec la réponse pré-remplie, en destinataires multiples) ;
 - `programme` : liste des étapes de la journée (heure, titre, lieu, détail) ;
 - `hebergement` (chaque entrée accepte un champ `lien` optionnel vers le site de réservation), `bateaux` (compagnies de la traversée Fouras ↔ Île-d'Aix, champ `lien`), `transport`, `lienCarte` (URL de la carte intégrée, ex. Google Maps `output=embed`), `dressCode`, `dateLimiteRsvp`.
@@ -31,3 +31,13 @@ Pour changer les couleurs, modifiez les variables CSS en haut de `styles.css` (`
 Par défaut, l'envoi est **direct depuis le site** via le service FormSubmit (`rsvpDirect` dans `config.js`) : GitHub Pages étant statique, aucun serveur n'est nécessaire, le navigateur envoie le formulaire en POST à `rsvpDirect.endpoint` (destinataire principal) avec `rsvpDirect.copie` en copie (`_cc`), et chaque réponse arrive par e-mail sur toutes les adresses de `emailsRsvp`. **Au premier envoi, FormSubmit envoie un e-mail de confirmation à chaque adresse destinataire : il faut cliquer sur le lien reçu pour activer la livraison.** Si l'envoi direct échoue, le formulaire ouvre automatiquement le client e-mail de l'invité (mailto pré-rempli vers `emailsRsvp`).
 
 Pour un autre service (Formspree, Google Forms…), changez `rsvpDirect.endpoint`, ou mettez `rsvpDirect.actif` à `false` pour revenir au mailto seul.
+
+**Masquer votre adresse dans le code :** après avoir activé FormSubmit, l'e-mail de confirmation fournit un identifiant aléatoire (ex. `https://formsubmit.co/ajax/a1b2c3d4...`). Remplacez l'adresse dans `rsvpDirect.endpoint` par cet identifiant pour que votre e-mail n'apparaisse plus dans l'URL d'envoi.
+
+**Anti-spam :** le formulaire contient un champ caché « pot de miel » (`_honey`) que seuls les robots remplissent ; ces envois sont ignorés. Le captcha FormSubmit n'est pas disponible en envoi direct (AJAX).
+
+## À compléter avant de diffuser le site
+
+- `programme` : les lieux de chaque étape sont marqués « Lieu précisé prochainement ».
+- `telephone` : vide pour l'instant (la ligne Téléphone est alors masquée sur le site).
+- Les balises `og:*` en haut de `index.html` (aperçu du lien sur WhatsApp, SMS…) reprennent les prénoms et la date : à mettre à jour si vous les changez dans `config.js`.

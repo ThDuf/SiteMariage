@@ -9,15 +9,17 @@ const CONFIG = {
     endpoint: "https://formsubmit.co/ajax/dufresne.thibault@gmail.com",
     copie: "adele.et.thibault@gmail.com"
   },
-  telephone: "+33 6 12 34 56 78",
+  // Laisser vide pour masquer le téléphone sur le site.
+  telephone: "",
   dateLimiteRsvp: "30 avril 2027",
   dressCode: "Tenue de cérémonie. Le blanc et le doré sont réservés aux mariés.",
+  // Lieux à préciser : remplacez "lieu" et "detail" par les informations définitives.
   programme: [
-    { heure: "15 h 30", titre: "Accueil des invités", lieu: "Château de la Vallée", detail: "Merci d'arriver 30 minutes avant le début de la cérémonie." },
-    { heure: "16 h 00", titre: "Cérémonie civile", lieu: "Mairie du 11e arrondissement", detail: "Salle des mariages. Merci de vous munir d'une pièce d'identité." },
-    { heure: "17 h 30", titre: "Cocktail de bienvenue", lieu: "Les jardins du château", detail: "Vin d'honneur, photos de groupe et jeux de pelouse." },
-    { heure: "20 h 00", titre: "Dîner de fête", lieu: "L'orangerie du château", detail: "Menu servi à table, avec options végétariennes sur demande." },
-    { heure: "23 h 00", titre: "Soirée dansante", lieu: "L'orangerie du château", detail: "Jusqu'au bout de la nuit, avec gâteau de minuit." }
+    { heure: "15 h 30", titre: "Accueil des invités", lieu: "Île-d'Aix — lieu précisé prochainement", detail: "Merci d'arriver 30 minutes avant le début de la cérémonie. Pensez à l'horaire du bateau depuis Fouras." },
+    { heure: "16 h 00", titre: "Cérémonie civile", lieu: "Lieu précisé prochainement", detail: "Merci de vous munir d'une pièce d'identité." },
+    { heure: "17 h 30", titre: "Cocktail de bienvenue", lieu: "Lieu précisé prochainement", detail: "Vin d'honneur et photos de groupe." },
+    { heure: "20 h 00", titre: "Dîner de fête", lieu: "Lieu précisé prochainement", detail: "Menu servi à table, avec options végétariennes sur demande." },
+    { heure: "23 h 00", titre: "Soirée dansante", lieu: "Lieu précisé prochainement", detail: "Jusqu'au bout de la nuit, avec gâteau de minuit." }
   ],
   hebergement: [
     { nom: "La maison familiale", adresse: "Île-d'Aix — adresse transmise avec l'invitation", info: "Chambres disponibles chez la famille d'Adèle & Thibault — écrivez-nous pour réserver la vôtre.", lien: "" },
