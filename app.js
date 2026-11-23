@@ -164,7 +164,8 @@ function envoyerRsvp(evenement) {
       formulaire.reset();
     } else {
       if (statut) {
-        statut.textContent = "L'envoi direct a échoué — on ouvre votre client e-mail à la place.";
+        const detail = resultat.data && resultat.data.message ? " — " + resultat.data.message : "";
+        statut.textContent = "L'envoi direct a échoué" + detail + ". On ouvre votre client e-mail à la place.";
       }
       ouvrirClientMail(sujet, lignes);
     }
