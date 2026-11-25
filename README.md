@@ -26,18 +26,6 @@ Pour changer les couleurs, modifiez les variables CSS en haut de `styles.css` (`
 2. Dans le dépôt : `Settings > Pages > Source : Deploy from a branch`, branche `main`, dossier `/ (root)`.
 3. Le site est en ligne à l'adresse indiquée par GitHub Pages.
 
-## Nom de domaine
-
-Le site est publié sur **https://adele-et-thibault.fr** (domaine acheté chez OVH). Le fichier `CNAME` à la racine indique ce domaine à GitHub Pages ; ne le supprimez pas.
-
-Zone DNS chez OVH :
-
-- 4 enregistrements `A` sur le domaine nu : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (supprimer les `A`/`AAAA` créés par défaut par OVH) ;
-- 1 enregistrement `CNAME` : `www` → `thduf.github.io.` ;
-- ne pas toucher aux enregistrements `MX` (e-mails).
-
-Dans le dépôt : `Settings > Pages > Custom domain` = `adele-et-thibault.fr`, puis cocher **Enforce HTTPS** une fois le certificat émis.
-
 ## Fonctionnement du RSVP
 
 Par défaut, l'envoi est **direct depuis le site** via le service FormSubmit (`rsvpDirect` dans `config.js`) : GitHub Pages étant statique, aucun serveur n'est nécessaire, le navigateur envoie le formulaire en POST à `rsvpDirect.endpoint` (destinataire principal) avec `rsvpDirect.copie` en copie (`_cc`), et chaque réponse arrive par e-mail sur toutes les adresses de `emailsRsvp`. **Au premier envoi, FormSubmit envoie un e-mail de confirmation à chaque adresse destinataire : il faut cliquer sur le lien reçu pour activer la livraison.** Si l'envoi direct échoue, le formulaire ouvre automatiquement le client e-mail de l'invité (mailto pré-rempli vers `emailsRsvp`).
