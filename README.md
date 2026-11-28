@@ -17,7 +17,7 @@ L'accueil affiche en arrière-plan `assets/hero-ile-d-aix.jpg` si le fichier exi
 
 Ouvrez `config.js` et remplacez les valeurs d'exemple :
 
-- `prenom1`, `prenom2`, `date` (format ISO, ex. `2026-06-20T16:00:00+02:00`), `lieu` ;
+- `prenom1`, `prenom2`, `date` (heure française, affichée en heure de Paris pour tous les invités) (format ISO, ex. `2026-06-20T16:00:00+02:00`), `lieu` ;
 - `emailsRsvp` : liste des adresses qui recevront les réponses (le formulaire ouvre le client mail de l'invité avec la réponse pré-remplie, en destinataires multiples) ;
 - `programme` : liste des étapes de la journée (heure, titre, lieu, détail) ;
 - `hebergement` (chaque entrée accepte un champ `lien` optionnel vers le site de réservation), `bateaux` (compagnies de la traversée Fouras ↔ Île-d'Aix, champ `lien`), `transport`, `lienCarte` (URL de la carte intégrée, ex. Google Maps `output=embed`), `dressCode`, `dateLimiteRsvp`.
@@ -47,3 +47,12 @@ Pour un autre service (Formspree, Google Forms…), changez `rsvpDirect.endpoint
 5. Chaque envoi ajoute dans l'onglet « RSVP » : Numéro, Date, Nom, E-mail, Nombre de personnes, Présence, Allergies / régimes, Message. Compteur global en cellule, ex. `=COUNTA(RSVP!A:A)-1`.
 
 L'enregistrement dans la feuille est indépendant de l'e-mail : une ligne est écrite même si l'envoi direct par e-mail échoue. Le secret (`token`) empêche quiconque d'écrire dans votre feuille via l'URL publique.
+
+**Masquer votre adresse dans le code :** après avoir activé FormSubmit, l'e-mail de confirmation fournit un identifiant aléatoire (ex. `https://formsubmit.co/ajax/a1b2c3d4...`). Remplacez l'adresse dans `rsvpDirect.endpoint` par cet identifiant pour que votre e-mail n'apparaisse plus dans l'URL d'envoi.
+
+**Anti-spam :** le formulaire contient un champ caché « pot de miel » (`_honey`) que seuls les robots remplissent ; ces envois sont ignorés. Le captcha FormSubmit n'est pas disponible en envoi direct (AJAX).
+
+## À compléter avant de diffuser le site
+
+- `programme` : les lieux de chaque étape sont marqués « Lieu précisé prochainement ».
+- Les balises `og:*` en haut de `index.html` (aperçu du lien sur WhatsApp, SMS…) reprennent les prénoms et la date : à mettre à jour si vous les changez dans `config.js`.

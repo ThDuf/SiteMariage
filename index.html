@@ -3,8 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nous nous marions</title>
-  <meta name="description" content="Site de mariage : date, organisation de la journée et réponse (RSVP) des invités.">
+  <title>Adèle &amp; Thibault se marient</title>
+  <meta name="description" content="Adèle &amp; Thibault se marient le 12 juin 2027 sur l'île d'Aix : date, organisation de la journée, hébergement et réponse (RSVP).">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Adèle &amp; Thibault se marient">
+  <meta property="og:description" content="Le 12 juin 2027 sur l'île d'Aix. Toutes les informations et le formulaire de réponse.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,11 +32,13 @@
   </header>
 
   <main>
+    <noscript><p class="sans-js">Ce site a besoin de JavaScript pour afficher toutes les informations. Activez-le ou écrivez-nous directement par e-mail.</p></noscript>
+
     <section id="accueil" class="hero">
       <p class="sur-titre">Nous avons la joie de vous annoncer notre mariage</p>
       <h1 id="noms-couple">&nbsp;</h1>
       <p class="date-lieu"><span id="date-affichee"></span><br><span id="lieu-affiche"></span></p>
-      <div class="compte-a-rebours" id="compte-a-rebours" aria-live="polite">
+      <div class="compte-a-rebours" id="compte-a-rebours" role="timer" aria-label="Compte à rebours avant le mariage">
         <div class="unite"><span class="valeur" id="cb-jours">–</span><span class="etiquette">jours</span></div>
         <div class="unite"><span class="valeur" id="cb-heures">–</span><span class="etiquette">heures</span></div>
         <div class="unite"><span class="valeur" id="cb-minutes">–</span><span class="etiquette">minutes</span></div>
@@ -71,13 +77,13 @@
       <div class="carte-carte"><iframe id="iframe-carte" title="Carte de l'île d'Aix et de Fouras" loading="lazy" allowfullscreen></iframe></div>
     </section>
 
-    <section id="hebergement" class="section section-alternee">
+    <section id="hebergement" class="section">
       <h2>Hébergement</h2>
       <p class="introduction">Tous les hébergements proposés sont situés sur l'île d'Aix.</p>
       <div class="cartes" id="liste-hebergement"></div>
     </section>
 
-    <section id="rsvp" class="section">
+    <section id="rsvp" class="section section-alternee">
       <h2>Répondez-nous (RSVP)</h2>
       <p class="introduction">Merci de confirmer votre présence avant le <strong id="date-limite"></strong>. Le formulaire envoie directement votre réponse par e-mail — si cela échoue, il ouvre votre client e-mail avec la réponse pré-remplie.</p>
       <form id="formulaire-rsvp" class="formulaire" novalidate>
@@ -107,17 +113,25 @@
           <label for="message">Un mot pour les mariés</label>
           <textarea id="message" name="message" rows="3" placeholder="Félicitations, conseils, anecdote…"></textarea>
         </div>
-        <button type="submit" class="bouton bouton-principal">Envoyer ma réponse</button>
+        <div class="pot-de-miel" aria-hidden="true">
+          <label for="_honey">Ne pas remplir ce champ</label>
+          <input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="bouton bouton-principal" id="bouton-envoyer">Envoyer ma réponse</button>
         <p class="aide" id="aide-rsvp"></p>
         <p class="aide" id="statut-rsvp" role="status"></p>
         <p class="aide"><a id="lien-mailto-secours" href="#" hidden>Ouvrir mon client e-mail à la place</a></p>
       </form>
     </section>
 
-    <section id="contact" class="section section-alternee">
+    <section id="contact" class="section">
       <h2>Contact</h2>
       <p id="texte-organisateurs" class="introduction"></p>
-      <p>E-mail : <a id="lien-email" href="#"></a><br>Téléphone : <a id="lien-tel" href="#"></a></p>
+      <p>E-mail : <a id="lien-email" href="#"></a></p>
+      <div class="bloc-telephones" id="bloc-telephones">
+        <button type="button" class="bouton bouton-secondaire" id="bouton-telephones">Afficher nos numéros</button>
+        <p class="liste-telephones" id="liste-telephones" hidden></p>
+      </div>
     </section>
   </main>
 

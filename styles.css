@@ -14,6 +14,12 @@
 
 html { scroll-behavior: smooth; }
 
+section[id] { scroll-margin-top: 3.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -169,6 +175,8 @@ a { color: var(--or-fonce); }
 
 .bouton-principal:hover { background: var(--or-fonce); border-color: var(--or-fonce); }
 
+.bouton:disabled { opacity: 0.6; cursor: wait; }
+
 .bouton-secondaire {
   background: transparent;
   color: var(--or-fonce);
@@ -270,10 +278,13 @@ a { color: var(--or-fonce); }
   box-shadow: var(--ombre);
 }
 
+.section:not(.section-alternee) .carte { background: #fff; }
+
 .carte h3 { margin: 0 0 0.5rem; color: var(--or-fonce); }
 .carte p { margin: 0 0 0.4rem; }
 
 .formulaire {
+  position: relative;
   max-width: 640px;
   margin: 0 auto;
   background: var(--papier);
@@ -282,10 +293,11 @@ a { color: var(--or-fonce); }
   box-shadow: var(--ombre);
   padding: 2rem;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.1rem;
 }
 
-.champ { display: grid; gap: 0.35rem; border: none; padding: 0; margin: 0; }
+.champ { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.35rem; border: none; padding: 0; margin: 0; min-width: 0; }
 
 .champ label, .champ legend {
   font-weight: 500;
@@ -297,6 +309,8 @@ a { color: var(--or-fonce); }
 .champ input[type="email"],
 .champ input[type="number"],
 .champ textarea {
+  width: 100%;
+  min-width: 0;
   font: inherit;
   padding: 0.65rem 0.8rem;
   border: 1px solid var(--ligne);
@@ -310,9 +324,25 @@ a { color: var(--or-fonce); }
   border-color: var(--or);
 }
 
+.section-alternee .formulaire { background: var(--ivoire); }
+
 .radio { display: flex; align-items: center; gap: 0.5rem; font-weight: 400; }
 
 .aide { font-size: 0.9rem; color: var(--doux); margin: 0; }
+.aide:empty { display: none; }
+
+/* Champ anti-robots, invisible pour les humains */
+.pot-de-miel { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.sans-js {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  background: #fff4d6;
+  border-bottom: 1px solid var(--ligne);
+}
+
+[hidden] { display: none !important; }
 
 .pied {
   text-align: center;
@@ -374,4 +404,12 @@ a { color: var(--or-fonce); }
   .etape { grid-template-columns: 52px 1fr; gap: 0.9rem; }
   .etape .heure::after { left: 54px; }
   .formulaire { padding: 1.4rem; }
+  .compte-a-rebours { gap: 0.5rem; }
+  .unite { min-width: 0; flex: 1 1 0; max-width: 86px; padding: 0.6rem 0.3rem; }
+  .valeur { font-size: 1.5rem; }
+  .etiquette { font-size: 0.6rem; letter-spacing: 0.02em; }
 }
+
+#contact p { text-align: center; }
+.bloc-telephones { text-align: center; margin-top: 1rem; }
+.ligne-telephone { display: block; }
