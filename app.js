@@ -57,14 +57,13 @@ function renseignerTextes() {
   lienEmail.textContent = CONFIG.emailsRsvp.join(", ");
   lienEmail.href = "mailto:" + CONFIG.emailsRsvp.join(",");
 
+  // Un numéro par personne ; rien n'est affiché si la liste est vide.
   const ligneTel = document.getElementById("ligne-tel");
-  if (CONFIG.telephone) {
-    const lienTel = document.getElementById("lien-tel");
-    lienTel.textContent = CONFIG.telephone;
-    lienTel.href = "tel:" + CONFIG.telephone.replace(/\s/g, "");
-  } else if (ligneTel) {
-    ligneTel.remove();
-  }
+  (CONFIG.telephones || []).forEach(function (t) {
+    const lien = creer("a", null, t.numero);
+    lien.href = "tel:" + t.numero.replace(/\s/g, "");
+    ligneTel.append(document.createElement("br"), t.nom + " : ", lien);
+  });
 
   document.getElementById("aide-rsvp").textContent =
     "Votre réponse est envoyée directement par e-mail à " + CONFIG.emailsRsvp.join(" et ") +
@@ -168,6 +167,16 @@ function gererPresence() {
   });
 }
 
+let dernierSujet = "";
+let dernieresLignes = [];
+
+function afficherSecoursMailto() {
+  const lien = document.getElementById("lien-mailto-secours");
+  if (lien) {
+    lien.hidden = false;
+  }
+}
+
 function envoyerRsvp(evenement) {
   evenement.preventDefault();
   const formulaire = evenement.target;
@@ -222,34 +231,52 @@ function envoyerRsvp(evenement) {
   if (CONFIG.rsvpDirect.copie) {
     donnees.append("_cc", CONFIG.rsvpDirect.copie);
   }
+  dernierSujet = sujet;
+  dernieresLignes = lignes;
+
+  // Enregistrement dans la Google Sheet (indépendant de l'e-mail), si configuré.
+  if (CONFIG.gsheetEndpoint) {
+    const params = new URLSearchParams({ token: CONFIG.gsheetSecret || "" });
+    Object.keys(champs).forEach(function (cle) {
+      params.append(cle, champs[cle]);
+    });
+    fetch(CONFIG.gsheetEndpoint, { method: "POST", mode: "no-cors", body: params }).catch(function () {});
+  }
 
   bouton.disabled = true;
   statut.textContent = "Envoi de votre réponse en cours…";
+  document.getElementById("lien-mailto-secours").hidden = true;
 
   fetch(CONFIG.rsvpDirect.endpoint, {
     method: "POST",
     body: donnees,
     headers: { "Accept": "application/json" }
   }).then(function (reponse) {
-    return reponse.json().then(function (data) {
-      return { ok: reponse.ok, data: data };
+    return reponse.text().then(function (texte) {
+      let data = null;
+      try {
+        data = JSON.parse(texte);
+      } catch (erreur) {
+        data = null;
+      }
+      return { ok: reponse.ok, status: reponse.status, data: data };
     });
   }).then(function (resultat) {
-    const succes = resultat.ok && resultat.data &&
-      (resultat.data.success === true || resultat.data.success === "true");
+    const data = resultat.data || {};
+    const succes = resultat.ok && (data.success === true || data.success === "true");
     if (succes) {
       statut.textContent = presence === "non"
         ? "Merci pour votre réponse, vous nous manquerez !"
         : "Merci ! Votre réponse a bien été envoyée. À très vite le " + formatJourFrancais(CONFIG.date) + " !";
       formulaire.reset();
     } else {
-      const detail = resultat.data && resultat.data.message ? " — " + resultat.data.message : "";
-      statut.textContent = "L'envoi direct a échoué" + detail + ". On ouvre votre client e-mail à la place.";
-      ouvrirClientMail(sujet, lignes);
+      const raison = data.message || data.error || ("HTTP " + resultat.status);
+      statut.textContent = "Échec de l'envoi direct : " + raison + ". Votre réponse n'a pas été envoyée, utilisez le lien ci-dessous.";
+      afficherSecoursMailto();
     }
   }).catch(function () {
-    statut.textContent = "Envoi direct indisponible — on ouvre votre client e-mail à la place.";
-    ouvrirClientMail(sujet, lignes);
+    statut.textContent = "Envoi direct indisponible (problème réseau ou blocage du navigateur). Votre réponse n'a pas été envoyée, utilisez le lien ci-dessous.";
+    afficherSecoursMailto();
   }).finally(function () {
     bouton.disabled = false;
   });
@@ -307,3 +334,7 @@ lancerCompteARebours();
 activerMenuMobile();
 gererPresence();
 document.getElementById("formulaire-rsvp").addEventListener("submit", envoyerRsvp);
+document.getElementById("lien-mailto-secours").addEventListener("click", function (e) {
+  e.preventDefault();
+  ouvrirClientMail(dernierSujet, dernieresLignes);
+});

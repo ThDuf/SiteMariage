@@ -9,6 +9,10 @@ Site statique en français, sans serveur ni base de données, publiable tel quel
 - `app.js` : affichage dynamique (compte à rebours, programme, hébergements et compagnies de bateaux avec liens, carte intégrée, QR code en pied de page, lien agenda Google, génération de l'e-mail RSVP).
 - `styles.css` : mise en page (style élégant ivoire/doré, responsive mobile).
 
+## Photo d'arrière-plan de l'accueil
+
+L'accueil affiche en arrière-plan `assets/hero-ile-d-aix.jpg` si le fichier existe (votre propre photo de l'île d'Aix), sinon une photo Wikimedia Commons de l'île en secours. Pour utiliser votre photo : placez-la dans `assets/hero-ile-d-aix.jpg` et retirez la ligne de crédit Wikimedia dans le pied de page de `index.html`.
+
 ## Personnaliser
 
 Ouvrez `config.js` et remplacez les valeurs d'exemple :
@@ -28,9 +32,21 @@ Pour changer les couleurs, modifiez les variables CSS en haut de `styles.css` (`
 
 ## Fonctionnement du RSVP
 
-Par défaut, l'envoi est **direct depuis le site** via le service FormSubmit (`rsvpDirect` dans `config.js`) : GitHub Pages étant statique, aucun serveur n'est nécessaire, le navigateur envoie le formulaire en POST à `rsvpDirect.endpoint` (destinataire principal) avec `rsvpDirect.copie` en copie (`_cc`), et chaque réponse arrive par e-mail sur toutes les adresses de `emailsRsvp`. **Au premier envoi, FormSubmit envoie un e-mail de confirmation à chaque adresse destinataire : il faut cliquer sur le lien reçu pour activer la livraison.** Si l'envoi direct échoue, le formulaire ouvre automatiquement le client e-mail de l'invité (mailto pré-rempli vers `emailsRsvp`).
+Par défaut, l'envoi est **direct depuis le site** via le service FormSubmit (`rsvpDirect` dans `config.js`) : GitHub Pages étant statique, aucun serveur n'est nécessaire, le navigateur envoie le formulaire en POST à `rsvpDirect.endpoint` (destinataire principal) avec `rsvpDirect.copie` en copie (`_cc`), et chaque réponse arrive par e-mail sur toutes les adresses de `emailsRsvp`. **Au premier envoi, FormSubmit envoie un e-mail de confirmation à chaque adresse destinataire : il faut cliquer sur le lien reçu pour activer la livraison.** Si l'envoi direct échoue, la raison exacte est affichée sous le formulaire et un lien permet d'ouvrir le client e-mail de l'invité à la place (mailto pré-rempli vers `emailsRsvp`).
 
 Pour un autre service (Formspree, Google Forms…), changez `rsvpDirect.endpoint`, ou mettez `rsvpDirect.actif` à `false` pour revenir au mailto seul.
+
+## Enregistrer chaque RSVP dans une Google Sheet (avec compteur)
+
+À chaque envoi du formulaire, le site poste aussi les données vers une petite application web Google Apps Script qui ajoute une ligne dans votre feuille, avec un **compteur auto-incrémenté** (colonne « Numéro » = numéro de ligne).
+
+1. Créez une Google Sheet (ex. « Mariage RSVP »). Son ID est dans l'URL, entre `/d/` et `/edit`.
+2. Dans la feuille : `Extensions > Apps Script`, collez le contenu de `gsheet-rsvp.gs`, remplacez `SHEET_ID` et `TOKEN` (inventez un secret fort), sauvegardez.
+3. `Déployer > Nouveau déploiement > Application web` : exécution « en tant que moi », accès « Tout le monde ». Copiez l'URL du web app.
+4. Dans `config.js` : collez cette URL dans `gsheetEndpoint` et le même secret dans `gsheetSecret`.
+5. Chaque envoi ajoute dans l'onglet « RSVP » : Numéro, Date, Nom, E-mail, Nombre de personnes, Présence, Allergies / régimes, Message. Compteur global en cellule, ex. `=COUNTA(RSVP!A:A)-1`.
+
+L'enregistrement dans la feuille est indépendant de l'e-mail : une ligne est écrite même si l'envoi direct par e-mail échoue. Le secret (`token`) empêche quiconque d'écrire dans votre feuille via l'URL publique.
 
 **Masquer votre adresse dans le code :** après avoir activé FormSubmit, l'e-mail de confirmation fournit un identifiant aléatoire (ex. `https://formsubmit.co/ajax/a1b2c3d4...`). Remplacez l'adresse dans `rsvpDirect.endpoint` par cet identifiant pour que votre e-mail n'apparaisse plus dans l'URL d'envoi.
 
@@ -39,5 +55,4 @@ Pour un autre service (Formspree, Google Forms…), changez `rsvpDirect.endpoint
 ## À compléter avant de diffuser le site
 
 - `programme` : les lieux de chaque étape sont marqués « Lieu précisé prochainement ».
-- `telephone` : vide pour l'instant (la ligne Téléphone est alors masquée sur le site).
 - Les balises `og:*` en haut de `index.html` (aperçu du lien sur WhatsApp, SMS…) reprennent les prénoms et la date : à mettre à jour si vous les changez dans `config.js`.
