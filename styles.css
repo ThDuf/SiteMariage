@@ -413,3 +413,15 @@ a { color: var(--or-fonce); }
 #contact p { text-align: center; }
 .bloc-telephones { text-align: center; margin-top: 1rem; }
 .ligne-telephone { display: block; }
+
+.hero { position: relative; }
+.credit-photo {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.5rem;
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--doux);
+  opacity: 0.8;
+}
+.credit-photo a { color: inherit; }

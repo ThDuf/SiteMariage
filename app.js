@@ -24,6 +24,11 @@ function formatHorodatageGoogle(d) {
 }
 
 // Crée un élément avec une classe et un texte (le texte n'est jamais interprété comme du HTML).
+// « de Adèle » → « d'Adèle » : élision devant une voyelle ou un h.
+function de(texte) {
+  return (/^[aeiouyhàâäéèêëîïôöùûü]/i.test(texte) ? "d'" : "de ") + texte;
+}
+
 function creer(balise, classe, texte) {
   const el = document.createElement(balise);
   if (classe) el.className = classe;
@@ -50,7 +55,7 @@ function renseignerTextes() {
   document.getElementById("texte-transport").textContent = CONFIG.transport;
   document.getElementById("texte-dresscode").textContent = CONFIG.dressCode;
   document.getElementById("texte-organisateurs").textContent = CONFIG.organisateurs;
-  document.getElementById("pied-noms").textContent = "Le mariage de " + noms;
+  document.getElementById("pied-noms").textContent = "Le mariage " + de(noms);
   document.title = noms + " se marient";
 
   const lienEmail = document.getElementById("lien-email");
@@ -70,7 +75,7 @@ function renseignerTextes() {
   const fin = new Date(debut.getTime() + 8 * 3600 * 1000);
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: "Mariage de " + noms,
+    text: "Mariage " + de(noms),
     dates: formatHorodatageGoogle(debut) + "/" + formatHorodatageGoogle(fin),
     details: "Cérémonie puis réception. Merci de confirmer votre présence sur le site du mariage.",
     location: CONFIG.lieu
@@ -231,7 +236,7 @@ function envoyerRsvp(evenement) {
     "Allergies / régimes : " + champs.allergies_regimes,
     "Message : " + champs.message
   ];
-  const sujet = "RSVP mariage de " + CONFIG.prenom1 + " & " + CONFIG.prenom2 + " – " + champs.nom;
+  const sujet = "RSVP mariage " + de(CONFIG.prenom1 + " & " + CONFIG.prenom2) + " – " + champs.nom;
 
   if (!CONFIG.rsvpDirect || !CONFIG.rsvpDirect.actif) {
     ouvrirClientMail(sujet, lignes);
