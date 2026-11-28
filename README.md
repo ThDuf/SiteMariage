@@ -11,7 +11,7 @@ Site statique en français, sans serveur ni base de données, publiable tel quel
 
 ## Photo d'arrière-plan de l'accueil
 
-L'accueil affiche en arrière-plan `assets/hero-ile-d-aix.jpg` si le fichier existe (votre propre photo de l'île d'Aix), sinon une photo Wikimedia Commons de l'île en secours. Pour utiliser votre photo : placez-la dans `assets/hero-ile-d-aix.jpg` et retirez la ligne de crédit Wikimedia dans le pied de page de `index.html`.
+L'accueil affiche en arrière-plan `assets/hero-ile-d-aix.jpg` si le fichier existe (votre propre photo de l'île d'Aix), sinon un simple dégradé ivoire. Pour ajouter votre photo : placez-la dans le dépôt sous `assets/hero-ile-d-aix.jpg` (format paysage, idéalement moins de 500 Ko).
 
 ## Personnaliser
 
