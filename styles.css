@@ -413,3 +413,15 @@ a { color: var(--or-fonce); }
 #contact p { text-align: center; }
 .bloc-telephones { text-align: center; margin-top: 1rem; }
 .ligne-telephone { display: block; }
+
+/* Hébergement : 4 colonnes sur grand écran, 2 sur tablette, 1 sur mobile */
+#liste-hebergement { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+#liste-hebergement .carte { padding: 1.2rem 1.25rem; overflow-wrap: break-word; }
+@media (min-width: 600px) {
+  #liste-hebergement { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  #liste-hebergement { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  #liste-hebergement .carte h3 { font-size: 1.1rem; }
+  #liste-hebergement .carte p { font-size: 0.92rem; }
+}
