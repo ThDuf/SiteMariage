@@ -12,10 +12,12 @@ const CONFIG = {
   // Google Sheet (optionnel) : voir README, section « Enregistrer chaque RSVP dans une Google Sheet ».
   gsheetEndpoint: "",
   gsheetSecret: "",
-  // Numéros affichés dans la section Contact (cliquables sur mobile). Liste vide = aucun numéro affiché.
+  // Numéros de la section Contact, affichés seulement après un clic sur « Afficher nos numéros ».
+  // Découpés en morceaux pour ne pas être repérés par les robots qui collectent les numéros.
+  // Liste vide = aucun bouton ni numéro.
   telephones: [
-    { nom: "Adèle", numero: "+33 6 72 92 14 96" },
-    { nom: "Thibault", numero: "+33 6 06 84 26 38" }
+    { nom: "Adèle", numero: ["+33", "6", "72", "92", "14", "96"] },
+    { nom: "Thibault", numero: ["+33", "6", "06", "84", "26", "38"] }
   ],
   dateLimiteRsvp: "30 avril 2027",
   dressCode: "Tenue de cérémonie. Le blanc et le doré sont réservés aux mariés.",

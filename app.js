@@ -57,13 +57,7 @@ function renseignerTextes() {
   lienEmail.textContent = CONFIG.emailsRsvp.join(", ");
   lienEmail.href = "mailto:" + CONFIG.emailsRsvp.join(",");
 
-  // Un numéro par personne ; rien n'est affiché si la liste est vide.
-  const ligneTel = document.getElementById("ligne-tel");
-  (CONFIG.telephones || []).forEach(function (t) {
-    const lien = creer("a", null, t.numero);
-    lien.href = "tel:" + t.numero.replace(/\s/g, "");
-    ligneTel.append(document.createElement("br"), t.nom + " : ", lien);
-  });
+  preparerTelephones();
 
   document.getElementById("aide-rsvp").textContent =
     "Votre réponse est envoyée directement par e-mail à " + CONFIG.emailsRsvp.join(" et ") +
@@ -83,6 +77,31 @@ function renseignerTextes() {
   });
   document.getElementById("lien-calendrier").href =
     "https://calendar.google.com/calendar/render?" + params.toString();
+}
+
+// Les numéros ne sont insérés dans la page qu'au clic sur le bouton (protection contre les robots).
+function preparerTelephones() {
+  const bloc = document.getElementById("bloc-telephones");
+  const bouton = document.getElementById("bouton-telephones");
+  const liste = document.getElementById("liste-telephones");
+  const telephones = CONFIG.telephones || [];
+  if (!telephones.length) {
+    bloc.hidden = true;
+    return;
+  }
+  bouton.addEventListener("click", function () {
+    telephones.forEach(function (t) {
+      const numero = t.numero.join(" ");
+      const lien = creer("a", null, numero);
+      lien.href = "tel:" + t.numero.join("");
+      const ligne = creer("span", "ligne-telephone");
+      ligne.append(t.nom + " : ", lien);
+      liste.appendChild(ligne);
+    });
+    bouton.hidden = true;
+    liste.hidden = false;
+    liste.querySelector("a").focus();
+  });
 }
 
 function remplirProgramme() {

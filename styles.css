@@ -411,3 +411,5 @@ a { color: var(--or-fonce); }
 }
 
 #contact p { text-align: center; }
+.bloc-telephones { text-align: center; margin-top: 1rem; }
+.ligne-telephone { display: block; }
